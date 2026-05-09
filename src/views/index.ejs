@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control - StockAlert</title>
+    <style>
+    body { 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        margin: 40px; 
+        background-color: #ffffff; 
+        color: #333;
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        background-color: #ffffff; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+    }
+
+    th, td { 
+        padding: 15px; 
+        border: 1px solid #eee; 
+        text-align: left; 
+    }
+
+    th { 
+        background-color: #f1c40f; 
+        color: #000; 
+        text-transform: uppercase;
+        font-size: 0.9em;
+    }
+
+    .alerta-roja { 
+        background-color: #fff9c4; 
+        color: #856404; 
+        font-weight: bold;
+    }
+
+    h1 { 
+        color: #f39c12; 
+        border-bottom: 3px solid #f1c40f;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+    <h1>Librería Camelot - Inventario Crítico</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Umbral Mínimo</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% productos.forEach(producto => { %>
+                <tr class="<%= producto.cantidad < producto.umbralMinimo ? 'alerta-roja' : '' %>">
+                    <td><%= producto.nombre %></td>
+                    <td><%= producto.cantidad %></td>
+                    <td><%= producto.umbralMinimo %></td>
+                    <td>
+                        <%= producto.cantidad < producto.umbralMinimo ? '⚠️ STOCK BAJO' : '✅ Normal' %>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
