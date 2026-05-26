@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockAlert - Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      padding: 30px;
+    }
+    h1 {
+      color: #f39c12;
+      border-bottom: 3px solid #f1c40f;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th {
+      background-color: #16213e;
+      color: #f39c12;
+      padding: 12px;
+      text-align: left;
+      font-size: 0.9em;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #333;
+    }
+    tr:hover { background-color: #0f3460; }
+    .alerta-roja {
+      background-color: #fff3cd;
+      color: #856404;
+      font-weight: bold;
+    }
+    .alerta-roja td { color: #856404; }
+    .badge-ok {
+      background: #28a745;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.85em;
+    }
+    .badge-alerta {
+      background: #dc3545;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.85em;
+    }
+    .resumen {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>📦 Librería Camelot - Inventario Crítico</h1>
+  <p class="resumen">Total de productos: <strong><%= productos.length %></strong> | 
+  En alerta: <strong><%= productos.filter(p => p.cantidad < p.umbralMinimo).length %></strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Umbral Mínimo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% productos.forEach(producto => { %>
+        <tr class="<%= producto.cantidad < producto.umbralMinimo ? 'alerta-roja' : '' %>">
+          <td><%= producto.nombre %></td>
+          <td><%= producto.cantidad %></td>
+          <td><%= producto.umbralMinimo %></td>
+          <td>
+            <% if (producto.cantidad < producto.umbralMinimo) { %>
+              <span class="badge-alerta">⚠️ STOCK BAJO</span>
+            <% } else { %>
+              <span class="badge-ok">✅ Normal</span>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
